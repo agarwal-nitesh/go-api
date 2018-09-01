@@ -1,0 +1,94 @@
+definitions:
+  models.Feedback:
+    properties:
+      comments:
+        type: string
+      id:
+        type: string
+      language_code:
+        type: string
+      region:
+        type: string
+      sub_type:
+        type: string
+      time_stamp:
+        type: integer
+      type:
+        type: string
+      user_handle:
+        type: string
+      user_id:
+        type: integer
+      values:
+        items:
+          $ref: '#/definitions/models.FeedbackItemResponse'
+        type: array
+    type: object
+  models.FeedbackItemResponse:
+    properties:
+      id:
+        type: string
+      response:
+        type: integer
+    type: object
+  models.ResponseStruct:
+    properties:
+      data:
+        type: object
+      debug:
+        type: string
+      desc:
+        type: string
+      exception:
+        type: string
+      message:
+        type: string
+      status:
+        type: string
+      statusCode:
+        type: integer
+    type: object
+info:
+  contact: {}
+  license: {}
+paths:
+  /v1/feedback:
+    get:
+      consumes:
+      - application/json
+      description: Get FeedbackItems
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ResponseStruct'
+            type: object
+      summary: Get FeedbackItems
+      tags:
+      - Admin V1
+    put:
+      consumes:
+      - application/json
+      description: Submit Feedback
+      parameters:
+      - description: Feedback
+        in: body
+        name: feedback
+        required: true
+        schema:
+          $ref: '#/definitions/models.Feedback'
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ResponseStruct'
+            type: object
+      summary: Submit Feedback
+      tags:
+      - Admin V1
+swagger: "2.0"
